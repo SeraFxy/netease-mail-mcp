@@ -1,0 +1,47 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.serafxy/netease-mail-mcp",
+  "title": "NetEase Mail",
+  "description": "NetEase personal mail (163/126/yeah.net/188): search, read, draft, send with confirmation.",
+  "repository": {
+    "url": "https://github.com/SeraFxy/netease-mail-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "netease-mail-mcp-server",
+      "version": "0.1.0",
+      "runtimeHint": "uvx",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        {
+          "name": "NETEASE_MAIL_ACCOUNTS",
+          "description": "Comma-separated NetEase addresses to use (first is the default). Authorization codes are stored by `setup` in the OS keychain, not here. Overrides the config file.",
+          "isRequired": false
+        },
+        {
+          "name": "NETEASE_MAIL_MODE",
+          "description": "Permission mode: readonly, draft or full.",
+          "isRequired": false,
+          "default": "full",
+          "choices": ["readonly", "draft", "full"]
+        },
+        {
+          "name": "NETEASE_MAIL_CONFIRM",
+          "description": "How send/move/trash are confirmed: auto, elicit (MCP elicitation, human approves in the client) or token (single-use content-bound token).",
+          "isRequired": false,
+          "default": "auto",
+          "choices": ["auto", "elicit", "token"]
+        },
+        {
+          "name": "NETEASE_MAIL_DOWNLOAD_DIR",
+          "description": "Directory for downloaded attachments (default ~/Downloads/netease-mail-mcp).",
+          "isRequired": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "netease-mail-mcp-server"
+dynamic = ["version"]
+description = "MCP server for NetEase personal mail (163 / 126 / yeah.net / 188): search, read, draft, and send with human confirmation."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "冯夏影", email = "fengxypsy@163.com" }]
+keywords = ["mcp", "model-context-protocol", "email", "mail", "imap", "smtp", "netease", "163", "126", "yeah.net", "188", "claude", "ai-agent"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Natural Language :: Chinese (Simplified)",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Communications :: Email",
+    "Topic :: Communications :: Email :: Post-Office :: IMAP",
+]
+dependencies = [
+    "mcp>=1.30,<2",
+    "keyring>=24",
+]
+
+[project.urls]
+Homepage = "https://github.com/SeraFxy/netease-mail-mcp"
+Repository = "https://github.com/SeraFxy/netease-mail-mcp"
+Issues = "https://github.com/SeraFxy/netease-mail-mcp/issues"
+Changelog = "https://github.com/SeraFxy/netease-mail-mcp/blob/main/CHANGELOG.md"
+
+[project.scripts]
+netease-mail-mcp-server = "netease_mail_mcp.cli:main"
+netease-mail-mcp = "netease_mail_mcp.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "ruff>=0.6",
+    "mypy>=1.10",
+]
+
+[tool.hatch.version]
+path = "src/netease_mail_mcp/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/netease_mail_mcp"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "scripts", "README.md", "README.en.md", "CHANGELOG.md", "LICENSE", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not live' -p no:cacheprovider"
+markers = [
+    "live: talks to real NetEase accounts listed in NETEASE_MAIL_LIVE_ACCOUNTS (opt-in: pytest -m live)",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003", "SIM105", "B905"]
+
+[tool.mypy]
+python_version = "3.10"
+files = ["src"]
+warn_unused_ignores = true
+warn_redundant_casts = true
+check_untyped_defs = true
