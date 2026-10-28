@@ -26,7 +26,8 @@ All notable changes to this project are documented here. The format follows
 - `download_attachment` writes only inside the download directory or its subfolders (symlinks
   resolved; UNC and drive-relative paths refused), creates files exclusively with mode 0600 and
   folders with 0700, bounds the unique-name search, and marks files as downloaded (macOS
-  quarantine attribute, Windows Zone.Identifier).
+  quarantine attribute, Windows Zone.Identifier). On Windows, which has no `O_NOFOLLOW`,
+  existing entries, dangling links included, are skipped by name before creating.
 - Outgoing attachments are refused from hidden paths under the home directory, `~/Library`
   (except iCloud Drive, cloud-drive folders and folders listed explicitly in
   `NETEASE_MAIL_ATTACHMENT_ROOTS`), compared by the actual files on disk so letter case does not

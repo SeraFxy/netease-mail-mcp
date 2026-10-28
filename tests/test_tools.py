@@ -146,6 +146,7 @@ async def test_download_skips_dangling_symlink_and_marks_file(
         monkeypatch.setattr(reading, "_zone_identifier", broken)
         unmarked = await client.call("download_attachment", id=msg_id, filename="报表.csv")
     assert Path(saved["path"]).name == "报表 (1).csv"
+    assert not (tmp_path / "target-that-does-not-exist").exists()  # never written through
     assert not (tmp_path / "target-that-does-not-exist").exists()
     assert unmarked["quarantine"] is None and Path(unmarked["path"]).name == "报表 (2).csv"
     if sys.platform == "darwin":

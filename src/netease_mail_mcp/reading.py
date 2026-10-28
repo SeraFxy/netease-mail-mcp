@@ -325,17 +325,30 @@ def download_directory(download_dir: Path, dest_dir: str | None) -> Path:
 
 
 def _create_exclusive(directory: Path, filename: str) -> tuple[Path, int]:
-    """Create a new file (0600, never following or replacing an existing entry)."""
+    """Create a new file (0600, never following or replacing an existing entry).
+
+    Windows has no O_NOFOLLOW and creates the target of a dangling link, so any existing
+    entry, links included, is skipped by name first and the result is checked again.
+    """
     for name in numbered_names(filename, MAX_NAME_ATTEMPTS):
         path = directory / name
+        if os.path.lexists(path):
+            continue
         try:
-            return path, os.open(path, _CREATE_FLAGS, 0o600)
+            fd = os.open(path, _CREATE_FLAGS, 0o600)
         except FileExistsError:
             continue
         except OSError as exc:
             raise InvalidArgument(
                 f"无法在 {directory} 创建文件：{exc}", hint=f"Cannot create a file: {exc}"
             ) from None
+        if os.path.islink(path):  # a link appeared between the check and the open
+            os.close(fd)
+            raise InvalidArgument(
+                f"{path} 在创建时变成了链接，已放弃下载。",
+                hint=f"{path} turned into a link while being created; download abandoned.",
+            )
+        return path, fd
     raise LimitError(
         f"{directory} 里已有太多同名文件（{filename}）。",
         hint=f"Too many files named like {filename!r} in {directory}.",

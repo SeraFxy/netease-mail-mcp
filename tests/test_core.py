@@ -130,7 +130,8 @@ def test_wrap_untrusted_defuses_fake_end_marker() -> None:
 
 def test_config_env_overrides_file(tmp_path: Path) -> None:
     path = tmp_path / "config.toml"
-    path.write_text(dumps_toml({"accounts": ["a@163.com", "b@yeah.net"], "mode": "draft"}))
+    config = dumps_toml({"accounts": ["a@163.com", "b@yeah.net"], "mode": "draft"})
+    path.write_text(config, encoding="utf-8")
     cfg = load_config(environ={}, path=path)
     assert cfg.accounts == ("a@163.com", "b@yeah.net") and cfg.mode == "draft"
     assert cfg.default_account == "a@163.com" and cfg.confirm == "auto"
