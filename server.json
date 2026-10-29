@@ -1,19 +1,19 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.serafxy/netease-mail-mcp",
+  "name": "io.github.SeraFxy/netease-mail-mcp",
   "title": "NetEase Mail",
   "description": "NetEase personal mail (163/126/yeah.net/188): search, read, draft, send with confirmation.",
   "repository": {
     "url": "https://github.com/SeraFxy/netease-mail-mcp",
     "source": "github"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "packages": [
     {
       "registryType": "pypi",
       "registryBaseUrl": "https://pypi.org",
       "identifier": "netease-mail-mcp-server",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "runtimeHint": "uvx",
       "transport": { "type": "stdio" },
       "environmentVariables": [

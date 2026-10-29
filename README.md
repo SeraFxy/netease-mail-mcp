@@ -1,4 +1,4 @@
-<!-- mcp-name: io.github.serafxy/netease-mail-mcp -->
+<!-- mcp-name: io.github.SeraFxy/netease-mail-mcp -->
 # netease-mail-mcp
 
 [English](README.en.md) | **简体中文**

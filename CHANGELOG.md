@@ -4,6 +4,13 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [0.1.1] - 2026-10-29
+
+### Fixed
+- MCP Registry name is now `io.github.SeraFxy/netease-mail-mcp`. The registry matches the GitHub
+  namespace case-sensitively, so the lowercase name in 0.1.0 could not be published. No code
+  changes.
+
 ## [0.1.0] - 2026-10-29
 
 ### Added
@@ -60,4 +67,5 @@ All notable changes to this project are documented here. The format follows
 - HTML-to-text conversion is linear on nested links and limited to 2 MB of HTML.
 - Confirmation tokens are checked and consumed in one locked step.
 
+[0.1.1]: https://github.com/SeraFxy/netease-mail-mcp/releases/tag/v0.1.1
 [0.1.0]: https://github.com/SeraFxy/netease-mail-mcp/releases/tag/v0.1.0
